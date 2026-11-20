@@ -1,0 +1,496 @@
+{
+  "schema_version": "1.0.0",
+  "datasets": {
+    "development": "v1",
+    "held-out": "heldout-v1"
+  },
+  "requirements": {
+    "FR-001": {
+      "acceptance_criteria": [
+        "AC-002"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CREATE-001",
+          "EV-CREATE-002",
+          "EV-CREATE-003",
+          "EV-CREATE-004",
+          "EV-CREATE-005"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CREATE-001",
+          "EV-HELDOUT-CREATE-002",
+          "EV-HELDOUT-CREATE-003",
+          "EV-HELDOUT-CREATE-004"
+        ]
+      },
+      "test_ids": [
+        "TEST-INTENT"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/parser.py::classify_intent"
+      ]
+    },
+    "FR-002": {
+      "acceptance_criteria": [
+        "AC-002"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CREATE-001",
+          "EV-CREATE-002",
+          "EV-CREATE-003",
+          "EV-CREATE-004",
+          "EV-CREATE-005"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CREATE-001",
+          "EV-HELDOUT-CREATE-002",
+          "EV-HELDOUT-CREATE-003",
+          "EV-HELDOUT-CREATE-004",
+          "EV-HELDOUT-CREATE-005"
+        ]
+      },
+      "test_ids": [
+        "TEST-CREATE-EXTRACT"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/parser.py::parse_request",
+        "src/reminder_agent/engine.py::process_request"
+      ]
+    },
+    "FR-003": {
+      "acceptance_criteria": [
+        "AC-002"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-RESCHEDULE-001",
+          "EV-RESCHEDULE-002",
+          "EV-RESCHEDULE-003",
+          "EV-RESCHEDULE-004",
+          "EV-RESCHEDULE-005"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-RESCHEDULE-001",
+          "EV-HELDOUT-RESCHEDULE-002",
+          "EV-HELDOUT-RESCHEDULE-003",
+          "EV-HELDOUT-RESCHEDULE-004",
+          "EV-HELDOUT-RESCHEDULE-005"
+        ]
+      },
+      "test_ids": [
+        "TEST-RESCHEDULE-EXTRACT"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/parser.py::parse_request",
+        "src/reminder_agent/validation.py::match_reminder_target"
+      ]
+    },
+    "FR-004": {
+      "acceptance_criteria": [
+        "AC-002"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-SNOOZE-001",
+          "EV-SNOOZE-002",
+          "EV-SNOOZE-003",
+          "EV-SNOOZE-004",
+          "EV-SNOOZE-005"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-SNOOZE-001",
+          "EV-HELDOUT-SNOOZE-002",
+          "EV-HELDOUT-SNOOZE-003",
+          "EV-HELDOUT-SNOOZE-004",
+          "EV-HELDOUT-SNOOZE-005"
+        ]
+      },
+      "test_ids": [
+        "TEST-SNOOZE-EXTRACT"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/parser.py::parse_request"
+      ]
+    },
+    "FR-005": {
+      "acceptance_criteria": [
+        "AC-003"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CLARIFY-001",
+          "EV-CLARIFY-002",
+          "EV-CLARIFY-003",
+          "EV-CLARIFY-004",
+          "EV-CLARIFY-005"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CREATE-005",
+          "EV-HELDOUT-RESCHEDULE-001",
+          "EV-HELDOUT-RESCHEDULE-002",
+          "EV-HELDOUT-RESCHEDULE-003",
+          "EV-HELDOUT-RESCHEDULE-004"
+        ]
+      },
+      "test_ids": [
+        "TEST-CLARIFICATION"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/parser.py::parse_request",
+        "src/reminder_agent/engine.py::process_request"
+      ]
+    },
+    "FR-006": {
+      "acceptance_criteria": [
+        "AC-001"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CREATE-001",
+          "EV-CREATE-002",
+          "EV-CREATE-003",
+          "EV-CREATE-004",
+          "EV-CREATE-005"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CREATE-001",
+          "EV-HELDOUT-CREATE-002",
+          "EV-HELDOUT-CREATE-003",
+          "EV-HELDOUT-CREATE-004",
+          "EV-HELDOUT-CREATE-005"
+        ]
+      },
+      "test_ids": [
+        "TEST-JSON-CONTRACT"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/output.py::build_response",
+        "src/reminder_agent/output.py::serialize_response"
+      ]
+    },
+    "FR-007": {
+      "acceptance_criteria": [
+        "AC-001"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CREATE-001",
+          "EV-CREATE-002",
+          "EV-CREATE-003",
+          "EV-CREATE-004",
+          "EV-CREATE-005"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CREATE-001",
+          "EV-HELDOUT-CREATE-002",
+          "EV-HELDOUT-CREATE-003",
+          "EV-HELDOUT-CREATE-004",
+          "EV-HELDOUT-CREATE-005"
+        ]
+      },
+      "test_ids": [
+        "TEST-SCHEMA-VALIDATION"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/validation.py::validate_response"
+      ]
+    },
+    "FR-008": {
+      "acceptance_criteria": [
+        "AC-004"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CREATE-019",
+          "EV-CREATE-020",
+          "EV-CREATE-021",
+          "EV-CREATE-022",
+          "EV-CLARIFY-001"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CREATE-004",
+          "EV-HELDOUT-CREATE-005",
+          "EV-HELDOUT-RESCHEDULE-003",
+          "EV-HELDOUT-RESCHEDULE-004",
+          "EV-HELDOUT-RESCHEDULE-005"
+        ]
+      },
+      "test_ids": [
+        "TEST-INPUT-VALIDATION"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/validation.py::validate_request_text",
+        "src/reminder_agent/validation.py::validate_context"
+      ]
+    },
+    "FR-009": {
+      "acceptance_criteria": [
+        "AC-004"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CREATE-019",
+          "EV-CREATE-020",
+          "EV-CREATE-021",
+          "EV-CREATE-022",
+          "EV-CLARIFY-001"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CREATE-004",
+          "EV-HELDOUT-CREATE-005",
+          "EV-HELDOUT-RESCHEDULE-003",
+          "EV-HELDOUT-RESCHEDULE-004",
+          "EV-HELDOUT-RESCHEDULE-005"
+        ]
+      },
+      "test_ids": [
+        "TEST-SAFE-INVALID-INPUT"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/engine.py::process_request"
+      ]
+    },
+    "FR-010": {
+      "acceptance_criteria": [
+        "AC-005"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CLARIFY-001"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CLARIFICATION-001"
+        ]
+      },
+      "test_ids": [
+        "TEST-TRACEABILITY"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/evaluation.py::_validate_traceability"
+      ]
+    },
+    "FR-011": {
+      "acceptance_criteria": [
+        "AC-005"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CREATE-001",
+          "EV-CREATE-002",
+          "EV-CREATE-003",
+          "EV-CREATE-004",
+          "EV-CREATE-005"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CREATE-001",
+          "EV-HELDOUT-CREATE-002",
+          "EV-HELDOUT-CREATE-003",
+          "EV-HELDOUT-CREATE-004",
+          "EV-HELDOUT-CREATE-005"
+        ]
+      },
+      "test_ids": [
+        "TEST-HARNESS-REPORT"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/evaluation.py::run_evaluation"
+      ]
+    },
+    "NFR-001": {
+      "acceptance_criteria": [
+        "AC-001"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CREATE-001",
+          "EV-CREATE-002",
+          "EV-CREATE-003",
+          "EV-CREATE-004",
+          "EV-CREATE-005"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CREATE-001",
+          "EV-HELDOUT-CREATE-002",
+          "EV-HELDOUT-CREATE-003",
+          "EV-HELDOUT-CREATE-004",
+          "EV-HELDOUT-CREATE-005"
+        ]
+      },
+      "test_ids": [
+        "TEST-SCHEMA-THRESHOLD"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/validation.py::get_schema_validator"
+      ]
+    },
+    "NFR-002": {
+      "acceptance_criteria": [
+        "AC-004"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CREATE-019",
+          "EV-CREATE-020",
+          "EV-CREATE-021",
+          "EV-CREATE-022",
+          "EV-CLARIFY-001"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CREATE-004",
+          "EV-HELDOUT-CREATE-005",
+          "EV-HELDOUT-RESCHEDULE-003",
+          "EV-HELDOUT-RESCHEDULE-004",
+          "EV-HELDOUT-RESCHEDULE-005"
+        ]
+      },
+      "test_ids": [
+        "TEST-PROPERTY-THRESHOLD"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/validation.py::response_properties_valid"
+      ]
+    },
+    "NFR-003": {
+      "acceptance_criteria": [
+        "AC-002"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CREATE-001",
+          "EV-CREATE-002",
+          "EV-CREATE-003",
+          "EV-CREATE-004",
+          "EV-CREATE-005"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CREATE-001",
+          "EV-HELDOUT-CREATE-002",
+          "EV-HELDOUT-CREATE-003",
+          "EV-HELDOUT-CREATE-004",
+          "EV-HELDOUT-CREATE-005"
+        ]
+      },
+      "test_ids": [
+        "TEST-SEMANTIC-THRESHOLD"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/evaluation.py::_semantically_equal"
+      ]
+    },
+    "NFR-004": {
+      "acceptance_criteria": [
+        "AC-005"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CREATE-001",
+          "EV-CREATE-002",
+          "EV-CREATE-003",
+          "EV-CREATE-004",
+          "EV-CREATE-005"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CREATE-001",
+          "EV-HELDOUT-CREATE-002",
+          "EV-HELDOUT-CREATE-003",
+          "EV-HELDOUT-CREATE-004",
+          "EV-HELDOUT-CREATE-005"
+        ]
+      },
+      "test_ids": [
+        "TEST-EVALUATION-REPRODUCIBILITY"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/evaluation.py::run_evaluation"
+      ]
+    },
+    "NFR-005": {
+      "acceptance_criteria": [
+        "AC-006"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CLARIFY-014"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CLARIFICATION-004"
+        ]
+      },
+      "test_ids": [
+        "TEST-SECURITY-QUALITY-GATES"
+      ],
+      "implementation_refs": [
+        "pyproject.toml::tool configuration",
+        "src/reminder_agent/engine.py::process_request"
+      ]
+    },
+    "NFR-006": {
+      "acceptance_criteria": [
+        "AC-006"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CREATE-001"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CREATE-001"
+        ]
+      },
+      "test_ids": [
+        "TEST-COVERAGE-AND-CATEGORIES"
+      ],
+      "implementation_refs": [
+        "pyproject.toml::tool.coverage.report",
+        "src/reminder_agent/parser.py"
+      ]
+    },
+    "NFR-007": {
+      "acceptance_criteria": [
+        "AC-008"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CREATE-019",
+          "EV-CREATE-020",
+          "EV-CREATE-021",
+          "EV-CREATE-022",
+          "EV-CLARIFY-001"
+        ],
+        "heldout-v1": [
+          "EV-HELDOUT-CREATE-004",
+          "EV-HELDOUT-CREATE-005",
+          "EV-HELDOUT-RESCHEDULE-003",
+          "EV-HELDOUT-RESCHEDULE-004",
+          "EV-HELDOUT-RESCHEDULE-005"
+        ]
+      },
+      "test_ids": [
+        "TEST-INPUT-SECURITY"
+      ],
+      "implementation_refs": [
+        "src/reminder_agent/engine.py::process_request",
+        "src/reminder_agent/evaluation.py::run_evaluation"
+      ]
+    },
+    "NFR-008": {
+      "acceptance_criteria": [
+        "AC-007"
+      ],
+      "evaluation_case_ids_by_dataset": {
+        "v1": [
+          "EV-CLARIFY-020"
+        ],
+        "heldout-v1": []
+      },
+      "test_ids": [
+        "TEST-DOCUMENTATION-COMPLETENESS"
+      ],
+      "implementation_refs": [
+        "specs/001-reminder-agent/quickstart.md",
+        "data/evaluation/traceability.json"
+      ]
+    }
+  }
+}

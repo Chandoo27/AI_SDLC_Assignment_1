@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+
+# Test caches
+.pytest_cache/
+.coverage
+
+# Ruff
+.ruff_cache/
+
+# Mypy
+.mypy_cache/
+
+# Hypothesis
+.hypothesis/
+
+# IDE
+.vscode/
+
+# OS files
+Thumbs.db
+.DS_Store

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "intent",
+    "task",
+    "datetime",
+    "needs_clarification",
+    "clarification_question"
+  ],
+  "properties": {
+    "intent": {
+      "type": "string",
+      "enum": ["create", "reschedule", "snooze", "clarification"]
+    },
+    "task": { "type": "string" },
+    "datetime": {
+      "oneOf": [
+        { "const": "" },
+        { "type": "string", "format": "date-time" }
+      ]
+    },
+    "needs_clarification": { "type": "boolean" },
+    "clarification_question": { "type": "string" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "needs_clarification": { "const": true } },
+        "required": ["needs_clarification"]
+      },
+      "then": {
+        "properties": {
+          "intent": { "const": "clarification" },
+          "clarification_question": { "minLength": 1 }
+        }
+      },
+      "else": {
+        "properties": {
+          "intent": { "enum": ["create", "reschedule", "snooze"] },
+          "task": { "minLength": 1 },
+          "datetime": {
+            "type": "string",
+            "format": "date-time",
+            "minLength": 1
+          },
+          "clarification_question": { "maxLength": 0 }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,298 @@
+openapi: 3.1.0
+info:
+  title: Smart Todo API
+  version: 1.0.0
+  description: Local JSON-backed task management API.
+paths:
+  /tasks:
+    get:
+      summary: List tasks
+      parameters:
+        - name: tags
+          in: query
+          required: false
+          style: form
+          explode: true
+          description: Repeat tags for match-any filtering; comma-separated values are also accepted.
+          schema:
+            type: array
+            items:
+              type: string
+              minLength: 1
+              maxLength: 32
+        - name: sort
+          in: query
+          required: false
+          description: Sort by priority, then creation date and ID.
+          schema:
+            type: string
+            enum: [priority]
+      responses:
+        "200":
+          description: Matching tasks in requested order
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "500":
+          $ref: "#/components/responses/DataFileError"
+    post:
+      summary: Create task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskCreate"
+      responses:
+        "201":
+          description: Created task
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "500":
+          $ref: "#/components/responses/DataFileError"
+  /tasks/{task_id}:
+    parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      summary: Retrieve task
+      responses:
+        "200":
+          description: Task
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "500":
+          $ref: "#/components/responses/DataFileError"
+    patch:
+      summary: Partially update task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskUpdate"
+      responses:
+        "200":
+          description: Updated task
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "500":
+          $ref: "#/components/responses/DataFileError"
+    delete:
+      summary: Delete task
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "500":
+          $ref: "#/components/responses/DataFileError"
+  /tasks/{task_id}/complete:
+    post:
+      summary: Mark task Completed
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Completed task
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "500":
+          $ref: "#/components/responses/DataFileError"
+  /tasks/{task_id}/reopen:
+    post:
+      summary: Mark task Pending
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Reopened task
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+        "500":
+          $ref: "#/components/responses/DataFileError"
+components:
+  schemas:
+    TaskCreate:
+      type: object
+      required: [title]
+      additionalProperties: false
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: Whitespace is trimmed before validating length.
+        description:
+          type: string
+          maxLength: 5000
+          default: ""
+          description: Whitespace is trimmed before validating length.
+        priority:
+          type: string
+          enum: [High, Medium, Low]
+          default: Medium
+        tags:
+          type: array
+          maxItems: 20
+          uniqueItems: true
+          description: Tags are trimmed and de-duplicated case-insensitively; first spelling is retained.
+          items:
+            type: string
+            minLength: 1
+            maxLength: 32
+          default: []
+    TaskUpdate:
+      type: object
+      minProperties: 1
+      additionalProperties: false
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        description:
+          type: string
+          maxLength: 5000
+          description: Whitespace is trimmed before validating length.
+        priority:
+          type: string
+          enum: [High, Medium, Low]
+        tags:
+          type: array
+          maxItems: 20
+          uniqueItems: true
+          description: Tags are trimmed and de-duplicated case-insensitively; first spelling is retained.
+          items:
+            type: string
+            minLength: 1
+            maxLength: 32
+    Task:
+      type: object
+      required: [id, title, description, priority, tags, status, createdAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          minLength: 1
+          maxLength: 200
+        description:
+          type: string
+          maxLength: 5000
+        priority:
+          type: string
+          enum: [High, Medium, Low]
+        tags:
+          type: array
+          maxItems: 20
+          uniqueItems: true
+          description: Tags are trimmed and stored uniquely, ignoring case.
+          items:
+            type: string
+            minLength: 1
+            maxLength: 32
+        status:
+          type: string
+          enum: [Pending, Completed]
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+    ErrorDetail:
+      type: object
+      required: [field, message]
+      properties:
+        field:
+          type: string
+        message:
+          type: string
+    ErrorResponse:
+      type: object
+      required: [code, message, details]
+      properties:
+        code:
+          type: string
+          enum:
+            - VALIDATION_ERROR
+            - TASK_NOT_FOUND
+            - DATA_FILE_ERROR
+            - NOT_FOUND
+            - HTTP_ERROR
+            - INTERNAL_ERROR
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            $ref: "#/components/schemas/ErrorDetail"
+  responses:
+    ValidationError:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    NotFound:
+      description: Task not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    DataFileError:
+      description: Local task data is unavailable
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"

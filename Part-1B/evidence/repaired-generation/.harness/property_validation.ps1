@@ -1,0 +1,1 @@
+python -m reminder_agent.evaluation --dataset data\evaluation\v1.jsonl --report reports\evaluation-v1.json
